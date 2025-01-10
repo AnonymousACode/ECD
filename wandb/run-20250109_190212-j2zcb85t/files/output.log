@@ -1,0 +1,28 @@
+Conditioning on ['alpha']
+Entropy of n_nodes: H[N] -2.4754221439361572
+/cpfs01/projects-HDD/cfff-4405968bce88_HDD/anjunyi/mole_diffusion_sorce/df_mole/qm9/models.py:139: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  probs = Categorical(torch.tensor(probs))
+Traceback (most recent call last):
+  File "/cpfs01/projects-HDD/cfff-4405968bce88_HDD/anjunyi/mole_diffusion_sorce/df_mole/main_qm9.py", line 191, in <module>
+    model, nodes_dist, prop_dist = get_model(args, device, dataset_info, dataloaders['train'])
+  File "/cpfs01/projects-HDD/cfff-4405968bce88_HDD/anjunyi/mole_diffusion_sorce/df_mole/qm9/models.py", line 25, in get_model
+    net_dynamics = EGNN_dynamics_QM9(
+  File "/cpfs01/projects-HDD/cfff-4405968bce88_HDD/anjunyi/mole_diffusion_sorce/df_mole/egnn/models.py", line 17, in __init__
+    self.egnn = EGNN(
+  File "/cpfs01/projects-HDD/cfff-4405968bce88_HDD/anjunyi/mole_diffusion_sorce/df_mole/egnn/egnn_new.py", line 175, in __init__
+    self.add_module("e_block_%d" % i, EquivariantBlock(hidden_nf, edge_feat_nf=edge_feat_nf, device=device,
+  File "/cpfs01/projects-HDD/cfff-4405968bce88_HDD/anjunyi/mole_diffusion_sorce/df_mole/egnn/egnn_new.py", line 132, in __init__
+    self.to(self.device)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1173, in to
+    return self._apply(convert)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 779, in _apply
+    module._apply(fn)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 779, in _apply
+    module._apply(fn)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 779, in _apply
+    module._apply(fn)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 804, in _apply
+    param_applied = fn(param)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1159, in convert
+    return t.to(
+KeyboardInterrupt

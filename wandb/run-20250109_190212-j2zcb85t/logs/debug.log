@@ -1,0 +1,23 @@
+2025-01-09 19:02:12,876 INFO    MainThread:9298 [wandb_setup.py:_flush():68] Current SDK version is 0.19.0
+2025-01-09 19:02:12,876 INFO    MainThread:9298 [wandb_setup.py:_flush():68] Configure stats pid to 9298
+2025-01-09 19:02:12,876 INFO    MainThread:9298 [wandb_setup.py:_flush():68] Loading settings from /home/anjunyi/.config/wandb/settings
+2025-01-09 19:02:12,876 INFO    MainThread:9298 [wandb_setup.py:_flush():68] Loading settings from /cpfs01/projects-HDD/cfff-4405968bce88_HDD/anjunyi/mole_diffusion_sorce/df_mole/wandb/settings
+2025-01-09 19:02:12,876 INFO    MainThread:9298 [wandb_setup.py:_flush():68] Loading settings from environment variables
+2025-01-09 19:02:12,876 INFO    MainThread:9298 [wandb_init.py:_log_setup():528] Logging user logs to /cpfs01/projects-HDD/cfff-4405968bce88_HDD/anjunyi/mole_diffusion_sorce/df_mole/wandb/run-20250109_190212-j2zcb85t/logs/debug.log
+2025-01-09 19:02:12,876 INFO    MainThread:9298 [wandb_init.py:_log_setup():529] Logging internal logs to /cpfs01/projects-HDD/cfff-4405968bce88_HDD/anjunyi/mole_diffusion_sorce/df_mole/wandb/run-20250109_190212-j2zcb85t/logs/debug-internal.log
+2025-01-09 19:02:12,876 INFO    MainThread:9298 [wandb_init.py:init():639] calling init triggers
+2025-01-09 19:02:12,876 INFO    MainThread:9298 [wandb_init.py:init():645] wandb.init called with sweep_config: {}
+config: {'exp_name': 'exp_cond_alpha_df_no_causal', 'model': 'egnn_dynamics', 'probabilistic_model': 'diffusion', 'diffusion_steps': 1000, 'diffusion_noise_schedule': 'polynomial_2', 'diffusion_noise_precision': 1e-05, 'diffusion_loss_type': 'l2', 'n_epochs': 3000, 'batch_size': 1024, 'lr': 0.0001, 'brute_force': False, 'actnorm': True, 'break_train_epoch': False, 'dp': True, 'condition_time': True, 'clip_grad': True, 'trace': 'hutch', 'n_layers': 9, 'inv_sublayers': 1, 'nf': 192, 'tanh': True, 'attention': True, 'norm_constant': 1, 'sin_embedding': False, 'ode_regularization': 0.001, 'dataset': 'qm9_second_half', 'datadir': 'qm9/temp', 'filter_n_atoms': None, 'dequantization': 'deterministic', 'n_report_steps': 1, 'wandb_usr': None, 'no_wandb': False, 'online': True, 'no_cuda': False, 'save_model': True, 'generate_epochs': 1, 'num_workers': 0, 'test_epochs': 50, 'data_augmentation': False, 'conditioning': ['alpha'], 'resume': None, 'start_epoch': 0, 'ema_decay': 0.999, 'augment_noise': 0, 'n_stability_samples': 500, 'normalize_factors': [1, 8, 1], 'remove_h': False, 'include_charges': False, 'visualize_every_batch': 100000000.0, 'normalization_factor': 1, 'aggregation_method': 'sum', 'cuda': True}
+2025-01-09 19:02:12,877 INFO    MainThread:9298 [wandb_init.py:init():688] starting backend
+2025-01-09 19:02:12,877 INFO    MainThread:9298 [wandb_init.py:init():692] sending inform_init request
+2025-01-09 19:02:12,881 INFO    MainThread:9298 [backend.py:_multiprocessing_setup():104] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2025-01-09 19:02:12,881 INFO    MainThread:9298 [wandb_init.py:init():705] backend started and connected
+2025-01-09 19:02:12,882 INFO    MainThread:9298 [wandb_init.py:init():798] updated telemetry
+2025-01-09 19:02:12,883 INFO    MainThread:9298 [wandb_init.py:init():830] communicating run to backend with 90.0 second timeout
+2025-01-09 19:02:13,806 INFO    MainThread:9298 [wandb_init.py:init():882] starting run threads in backend
+2025-01-09 19:02:13,914 INFO    MainThread:9298 [wandb_run.py:_console_start():2443] atexit reg
+2025-01-09 19:02:13,914 INFO    MainThread:9298 [wandb_run.py:_redirect():2293] redirect: wrap_raw
+2025-01-09 19:02:13,914 INFO    MainThread:9298 [wandb_run.py:_redirect():2358] Wrapping output streams.
+2025-01-09 19:02:13,915 INFO    MainThread:9298 [wandb_run.py:_redirect():2383] Redirects installed.
+2025-01-09 19:02:13,916 INFO    MainThread:9298 [wandb_init.py:init():925] run started, returning control to user process
+2025-01-09 19:02:18,994 WARNING MsgRouterThr:9298 [router.py:message_loop():75] message_loop has been closed

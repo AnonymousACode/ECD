@@ -1,0 +1,8 @@
+{"time":"2025-01-09T19:02:12.88352276+08:00","level":"INFO","msg":"using version","core version":"0.19.0"}
+{"time":"2025-01-09T19:02:12.883591298+08:00","level":"INFO","msg":"created symlink","path":"/cpfs01/projects-HDD/cfff-4405968bce88_HDD/anjunyi/mole_diffusion_sorce/df_mole/wandb/run-20250109_190212-j2zcb85t/logs/debug-core.log"}
+{"time":"2025-01-09T19:02:12.884291794+08:00","level":"INFO","msg":"created new stream","id":"j2zcb85t"}
+{"time":"2025-01-09T19:02:12.884339933+08:00","level":"INFO","msg":"stream: started","id":"j2zcb85t"}
+{"time":"2025-01-09T19:02:12.884372268+08:00","level":"INFO","msg":"writer: Do: started","stream_id":"j2zcb85t"}
+{"time":"2025-01-09T19:02:12.884400882+08:00","level":"INFO","msg":"sender: started","stream_id":"j2zcb85t"}
+{"time":"2025-01-09T19:02:12.884429475+08:00","level":"INFO","msg":"handler: started","stream_id":"j2zcb85t"}
+{"time":"2025-01-09T19:02:18.994605377+08:00","level":"INFO","msg":"stream: closing","id":"j2zcb85t"}
