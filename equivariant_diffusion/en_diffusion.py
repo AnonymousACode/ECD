@@ -583,6 +583,7 @@ class EnVariationalDiffusion(torch.nn.Module):
         # Sample a timestep t.
         t_int = torch.randint(
             lowest_t, self.T + 1, size=(x.size(0), x.size(1)), device=x.device).float()
+        
         s_int = t_int - 1
         t_is_zero = (t_int == 0).float()  # Important to compute log p(x | z0).
 
@@ -751,12 +752,12 @@ class EnVariationalDiffusion(torch.nn.Module):
         zs = self.sample_normal(mu, sigma, node_mask, fix_noise)
 
         # Project down to avoid numerical runaway of the center of gravity.
-        zs = torch.cat(
+        zs_out = torch.cat(
             [diffusion_utils.remove_mean_with_mask(zs[:, :, :self.n_dims],
                                                    node_mask),
              zs[:, :, self.n_dims:]], dim=2
         )
-        return zs
+        return zs_out
 
     def sample_combined_position_feature_noise(self, n_samples, n_nodes, node_mask):
         """
@@ -795,17 +796,19 @@ class EnVariationalDiffusion(torch.nn.Module):
         diffusion_utils.assert_mean_zero_with_mask(z[:, :, :self.n_dims], node_mask)
 
         # Iteratively sample p(z_s | z_t) for t = 1, ..., T, with s = t - 1.
-        self.stabilization_level = 10
+        self.stabilization_level = 1
         schedule = self._generate_pyramid_scheduling_matrix(n_nodes, 1)
         schedule = torch.tensor(data=schedule, device=z.device)
-        schedule = torch.where(schedule < 0, 
+        t_schedule = torch.where(schedule <= 0, 
             torch.full_like(schedule, self.stabilization_level, dtype=torch.long),
             schedule)
+        t_schedule = t_schedule[:-2]
+        s_schedule = t_schedule - 1
 
         # for s in reversed(range(0, self.T)):
-        for m in range(schedule.shape[0] - 1):
-            t_array = schedule[m].view(1, -1).expand(n_samples, -1)
-            s_array = schedule[m + 1].view(1, -1).expand(n_samples, -1)
+        for m in range(t_schedule.shape[0]):
+            t_array = t_schedule[m].view(1, -1).expand(n_samples, -1)
+            s_array = s_schedule[m].view(1, -1).expand(n_samples, -1)
             s_array = s_array / self.T
             t_array = t_array / self.T
             z = self.sample_p_zs_given_zt(s_array, t_array, z, node_mask, edge_mask, context, fix_noise=fix_noise)
@@ -894,18 +897,20 @@ class EnVariationalDiffusion(torch.nn.Module):
             assert keep_frames <= self.T
         chain = torch.zeros((keep_frames,) + z.size(), device=z.device)
 
-        self.stabilization_level = 10
+        self.stabilization_level = 1
         schedule = self._generate_pyramid_scheduling_matrix(n_nodes, 1)
         schedule = torch.tensor(data=schedule, device=z.device)
-        schedule = torch.where(schedule < 0, 
+        t_schedule = torch.where(schedule <= 0, 
             torch.full_like(schedule, self.stabilization_level, dtype=torch.long),
             schedule)
+        t_schedule = t_schedule[:-2]
+        s_schedule = t_schedule - 1
 
         # for s in reversed(range(0, self.T)):
-        length = schedule.shape[0] - 1
-        for m in range(schedule.shape[0] - 1):
-            t_array = schedule[m].view(1, -1).expand(n_samples, -1)
-            s_array = schedule[m + 1].view(1, -1).expand(n_samples, -1)
+        length = t_schedule.shape[0]
+        for m in range(t_schedule.shape[0] - 1):
+            t_array = t_schedule[m].view(1, -1).expand(n_samples, -1)
+            s_array = s_schedule[m].view(1, -1).expand(n_samples, -1)
             s_array = s_array / self.T
             t_array = t_array / self.T
             z = self.sample_p_zs_given_zt(s_array, t_array, z, node_mask, edge_mask, context)
@@ -915,7 +920,7 @@ class EnVariationalDiffusion(torch.nn.Module):
             write_index = ((length - m - 1) * keep_frames) // length
             chain[write_index] = self.unnormalize_z(z, node_mask)
 
-            # if schedule.shape[0] - 1 - m <= self.T:
+             # if schedule.shape[0] - 1 - m <= self.T:
             #     write_index = (s * keep_frames) // self.T
             #     chain[write_index] = self.unnormalize_z(z, node_mask)
             #     s -= 1
