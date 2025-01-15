@@ -35,6 +35,8 @@ class GCL(nn.Module):
             self.att_mlp_tril = nn.Sequential(
                 nn.Linear(hidden_nf, 1),
                 nn.Sigmoid())
+        
+        self.ln = nn.LayerNorm(output_nf)
 
     def edge_model(self, source, target, edge_attr, edge_mask):
         if edge_attr is None:  # Unused.
@@ -87,12 +89,14 @@ class GCL(nn.Module):
 
         edge_feat_all, mij_all = self.edge_model(h[row], h[col], edge_attr, edge_mask)
         edge_feat_tril, mij_tril = self.edge_model_tril(h[row], h[col], edge_attr, edge_mask_tril)
-        edge_feat = edge_feat_all + edge_feat_tril * 0.1
-        mij = mij_all + mij_tril * 0.1
+        edge_feat = edge_feat_all + edge_feat_tril
+        mij = mij_all + mij_tril
+        # edge_feat, mij = self.edge_model(h[row], h[col], edge_attr, edge_mask)
 
         h, agg = self.node_model(h, edge_index, edge_feat, node_attr)
         if node_mask is not None:
             h = h * node_mask
+        h = self.ln(h)
         return h, mij
 
 
