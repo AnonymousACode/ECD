@@ -57,6 +57,7 @@ class EGNN_dynamics_QM9(nn.Module):
         edge_mask_tril = edge_mask.reshape(bs, n_nodes, n_nodes)
         edge_mask_tril = torch.tril(edge_mask_tril, diagonal=0)
         edge_mask_tril = edge_mask_tril.reshape(bs*n_nodes*n_nodes, 1)
+        # edge_mask_tril = None
 
         edge_mask = edge_mask.reshape(bs*n_nodes*n_nodes, 1)
         xh = xh.view(bs*n_nodes, -1).clone() * node_mask
